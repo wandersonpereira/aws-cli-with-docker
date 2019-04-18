@@ -13,21 +13,23 @@ RUN apt-get update \
  libffi-dev \
  python3-dev \
  unixodbc-dev \
- curl
+ curl \
+ python3-pip
 
 # Install Docker
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN apt-key fingerprint 0EBFCD88
 RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
-RUN apt-get update
 
-RUN apt-get -y install docker-ce docker-ce-cli containerd.io
-RUN service docker start
+RUN apt-get update \
+ && apt-get -y install docker-ce \
+ docker-ce-cli \
+ containerd.io
 
 # Install awscli
-RUN curl -O https://bootstrap.pypa.io/get-pip.py
-RUN python3 get-pip.py
 RUN export PATH=/usr/local/bin:$PATH
-RUN pip3 install awscli --upgrade --user
+RUN pip3 install awscli --upgrade
+
+RUN aws --version
 
 CMD ["bash"]
