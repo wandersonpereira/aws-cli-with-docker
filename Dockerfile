@@ -32,4 +32,4 @@ RUN pip3 install awscli --upgrade
 
 RUN aws --version
 
-CMD ["bash"]
+CMD ["systemctl", "start", "docker"]
