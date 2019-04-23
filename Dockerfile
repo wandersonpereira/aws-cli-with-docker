@@ -14,9 +14,7 @@ RUN apt-get update \
  python3-dev \
  unixodbc-dev \
  curl \
- python3-pip \
- lxc \ 
- iptables
+ python3-pip
 
 # Install Docker
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
@@ -34,8 +32,6 @@ RUN pip3 install awscli --upgrade
 
 RUN aws --version
 
-COPY ./docker-entrypoint.sh /
+EXPOSE 2375
 
-ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
-
-CMD ["bash"]
+CMD ["service", "docker", "start"]
